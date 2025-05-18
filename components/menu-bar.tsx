@@ -24,7 +24,7 @@ export default function MenuBar() {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-8 px-2 text-black bg-white/0 backdrop-blur-md">
+    <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-8 px-2 text-black bg-white/40 backdrop-blur-md">
       {/* Left side - Apple logo and menus */}
       <div className="flex items-center space-x-4">
         <div className="flex items-center justify-center w-8 h-8">
