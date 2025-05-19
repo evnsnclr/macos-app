@@ -1,9 +1,27 @@
+"use client"
+
+import { ExternalLink } from "lucide-react"
+
 export default function LinkedinApp() {
+  // LinkedIn profile URL
+  const linkedinProfileUrl = "https://www.linkedin.com/in/evnsmith/"
+
+  const handleOpenLinkedIn = () => {
+    window.open(linkedinProfileUrl, "_blank")
+  }
+
   return (
     <div className="flex flex-col h-full bg-gray-100">
       {/* LinkedIn header */}
-      <div className="flex items-center p-4 bg-white border-b">
+      <div className="flex items-center justify-between p-4 bg-white border-b">
         <div className="text-xl font-bold text-blue-700">LinkedIn</div>
+        <button 
+          onClick={handleOpenLinkedIn}
+          className="flex items-center px-3 py-1 text-sm bg-blue-100 text-blue-700 hover:bg-blue-200 rounded-md"
+        >
+          <span>View on LinkedIn</span>
+          <ExternalLink className="w-4 h-4 ml-1" />
+        </button>
       </div>
 
       {/* Profile section */}
@@ -15,21 +33,27 @@ export default function LinkedinApp() {
         <div className="relative px-6 pb-6">
           <div className="absolute w-24 h-24 overflow-hidden bg-white border-4 border-white rounded-full -top-12">
             <div className="flex items-center justify-center w-full h-full text-4xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-              P
+              E
             </div>
           </div>
 
           <div className="pt-16">
-            <h1 className="text-2xl font-bold">Portfolio User</h1>
+            <h1 className="text-2xl font-bold">Evan Smith</h1>
             <p className="text-gray-600">Full-Stack Developer | React | Next.js | Node.js | AI Enthusiast</p>
-            <p className="mt-1 text-sm text-gray-500">San Francisco, California · 500+ connections</p>
+            <p className="mt-1 text-sm text-gray-500">San Francisco Bay Area · 500+ connections</p>
 
             <div className="flex mt-4 space-x-3">
-              <button className="px-4 py-1 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700">
-                Connect
+              <button 
+                onClick={handleOpenLinkedIn}
+                className="px-4 py-1 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700"
+              >
+                View Profile
               </button>
-              <button className="px-4 py-1 text-sm font-medium text-blue-600 border border-blue-600 rounded-full hover:bg-blue-50">
-                Message
+              <button 
+                onClick={handleOpenLinkedIn}
+                className="px-4 py-1 text-sm font-medium text-blue-600 border border-blue-600 rounded-full hover:bg-blue-50"
+              >
+                Connect
               </button>
               <button className="px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-full hover:bg-gray-50">
                 More
@@ -46,9 +70,9 @@ export default function LinkedinApp() {
           <div className="p-4 bg-white rounded-lg shadow">
             <h2 className="mb-4 text-xl font-bold">About</h2>
             <p className="text-gray-700">
-              Passionate full-stack developer with 5+ years of experience building web and mobile applications.
+              Passionate full-stack developer with experience building web and mobile applications.
               Specialized in creating intuitive user experiences with React and Next.js, backed by robust Node.js APIs.
-              Recently exploring AI integration in web applications.
+              Exploring AI integration in web applications.
             </p>
           </div>
 
@@ -60,17 +84,16 @@ export default function LinkedinApp() {
               <div className="flex">
                 <div className="w-12 h-12 mr-4 overflow-hidden bg-gray-100 rounded">
                   <div className="flex items-center justify-center w-full h-full text-xl font-bold text-gray-500">
-                    T
+                    G
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold">Senior Frontend Developer</h3>
-                  <p className="text-gray-600">Tech Innovations Inc.</p>
-                  <p className="text-sm text-gray-500">Jan 2022 - Present · 3 years 5 months</p>
+                  <h3 className="font-semibold">Data Scientist</h3>
+                  <p className="text-gray-600">Georgia Tech Research Institute</p>
+                  <p className="text-sm text-gray-500">2020 - Present</p>
                   <p className="mt-2 text-gray-700">
-                    Leading the frontend development team in building responsive and accessible web applications.
-                    Implemented modern React patterns and optimized performance across multiple projects.
+                    Research and development of machine learning algorithms and data analysis pipelines.
                   </p>
                 </div>
               </div>
@@ -78,17 +101,16 @@ export default function LinkedinApp() {
               <div className="flex">
                 <div className="w-12 h-12 mr-4 overflow-hidden bg-gray-100 rounded">
                   <div className="flex items-center justify-center w-full h-full text-xl font-bold text-gray-500">
-                    D
+                    G
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold">Full-Stack Developer</h3>
-                  <p className="text-gray-600">Digital Solutions LLC</p>
-                  <p className="text-sm text-gray-500">Mar 2019 - Dec 2021 · 2 years 10 months</p>
+                  <h3 className="font-semibold">Graduate Research Assistant</h3>
+                  <p className="text-gray-600">Georgia Tech</p>
+                  <p className="text-sm text-gray-500">2019 - 2020</p>
                   <p className="mt-2 text-gray-700">
-                    Developed and maintained web applications using React, Node.js, and MongoDB. Collaborated with
-                    design and product teams to deliver high-quality user experiences.
+                    Machine learning research and development of data analysis techniques.
                   </p>
                 </div>
               </div>
@@ -101,16 +123,25 @@ export default function LinkedinApp() {
 
             <div className="flex">
               <div className="w-12 h-12 mr-4 overflow-hidden bg-gray-100 rounded">
+                <div className="flex items-center justify-center w-full h-full text-xl font-bold text-gray-500">G</div>
+              </div>
+
+              <div>
+                <h3 className="font-semibold">Georgia Institute of Technology</h3>
+                <p className="text-gray-600">Master of Science in Analytics</p>
+                <p className="text-sm text-gray-500">2019 - 2020</p>
+              </div>
+            </div>
+            
+            <div className="flex mt-4">
+              <div className="w-12 h-12 mr-4 overflow-hidden bg-gray-100 rounded">
                 <div className="flex items-center justify-center w-full h-full text-xl font-bold text-gray-500">U</div>
               </div>
 
               <div>
-                <h3 className="font-semibold">University of Technology</h3>
-                <p className="text-gray-600">Bachelor of Science in Computer Science</p>
+                <h3 className="font-semibold">University of Georgia</h3>
+                <p className="text-gray-600">Bachelor of Science in Mathematics</p>
                 <p className="text-sm text-gray-500">2015 - 2019</p>
-                <p className="mt-2 text-gray-700">
-                  Graduated with honors. Specialized in software engineering and artificial intelligence.
-                </p>
               </div>
             </div>
           </div>
@@ -125,20 +156,27 @@ export default function LinkedinApp() {
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">React.js</span>
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Next.js</span>
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Node.js</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Express</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">MongoDB</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">PostgreSQL</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">GraphQL</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">REST APIs</span>
+              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Python</span>
+              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Machine Learning</span>
+              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Data Analysis</span>
+              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">R</span>
+              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">SQL</span>
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">HTML/CSS</span>
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Tailwind CSS</span>
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Git</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">CI/CD</span>
               <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Docker</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">AWS</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">Python</span>
-              <span className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">TensorFlow</span>
             </div>
+          </div>
+          
+          {/* View on LinkedIn */}
+          <div className="flex justify-center py-4">
+            <button 
+              onClick={handleOpenLinkedIn}
+              className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+            >
+              View Full Profile on LinkedIn
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </button>
           </div>
         </div>
       </div>

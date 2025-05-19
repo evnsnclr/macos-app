@@ -1,30 +1,44 @@
 "use client"
 
 import { useState } from "react"
-import { Star, GitFork, Eye, Code } from "lucide-react"
+import { Star, GitFork, Eye, Code, ExternalLink } from "lucide-react"
 
 export default function GithubApp() {
   const [activeTab, setActiveTab] = useState("repositories")
+  
+  // GitHub profile URL
+  const githubProfileUrl = "https://github.com/evnsnclr"
+
+  const handleViewOnGithub = () => {
+    window.open(githubProfileUrl, "_blank")
+  }
 
   const renderContent = () => {
     switch (activeTab) {
       case "repositories":
-        return <RepositoriesTab />
+        return <RepositoriesTab githubProfileUrl={githubProfileUrl} />
       case "contributions":
         return <ContributionsTab />
       default:
-        return <RepositoriesTab />
+        return <RepositoriesTab githubProfileUrl={githubProfileUrl} />
     }
   }
 
   return (
     <div className="flex flex-col h-full">
       {/* GitHub header */}
-      <div className="flex items-center p-4 bg-gray-900 text-white">
+      <div className="flex items-center justify-between p-4 bg-gray-900 text-white">
         <div className="flex items-center">
           <Code className="w-6 h-6 mr-2" />
           <span className="text-lg font-semibold">GitHub</span>
         </div>
+        <button 
+          onClick={handleViewOnGithub}
+          className="flex items-center px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 rounded-md"
+        >
+          <span>View on GitHub</span>
+          <ExternalLink className="w-4 h-4 ml-1" />
+        </button>
       </div>
 
       {/* Profile section */}
@@ -32,13 +46,13 @@ export default function GithubApp() {
         <div className="flex items-start">
           <div className="w-24 h-24 mr-6 overflow-hidden bg-gray-300 rounded-full">
             <div className="flex items-center justify-center w-full h-full text-4xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-              P
+              E
             </div>
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold">Portfolio User</h1>
-            <p className="text-gray-600">@portfolio-dev</p>
+            <h1 className="text-2xl font-bold">Evan Sinclair</h1>
+            <p className="text-gray-600">@evnsnclr</p>
             <p className="mt-2 text-gray-700">
               Full-stack developer passionate about creating intuitive and engaging user experiences.
             </p>
@@ -46,12 +60,18 @@ export default function GithubApp() {
             <div className="flex mt-4 space-x-4">
               <div className="flex items-center text-sm text-gray-600">
                 <Eye className="w-4 h-4 mr-1" />
-                <span>42 followers</span>
+                <span>4 followers</span>
               </div>
               <div className="flex items-center text-sm text-gray-600">
                 <Eye className="w-4 h-4 mr-1" />
-                <span>38 following</span>
+                <span>5 following</span>
               </div>
+              <button 
+                onClick={handleViewOnGithub}
+                className="flex items-center text-sm text-blue-600 hover:underline"
+              >
+                Visit profile <ExternalLink className="w-3 h-3 ml-1" />
+              </button>
             </div>
           </div>
         </div>
@@ -87,65 +107,78 @@ export default function GithubApp() {
   )
 }
 
-function RepositoriesTab() {
+function RepositoriesTab({ githubProfileUrl }: { githubProfileUrl: string }) {
   const repositories = [
     {
-      name: "portfolio-website",
-      description: "Personal portfolio website built with Next.js and Tailwind CSS",
-      language: "TypeScript",
-      languageColor: "#3178c6",
+      name: "GPT-Data-Analyzer",
+      description: "Tool for analyzing and visualizing data with GPT",
+      language: "Python",
+      languageColor: "#3572A5",
       stars: 24,
       forks: 5,
       updatedAt: "Updated 2 days ago",
     },
     {
-      name: "e-commerce-platform",
-      description: "Full-featured e-commerce platform with product management and payment processing",
-      language: "JavaScript",
-      languageColor: "#f7df1e",
+      name: "OpenAI_Agent_Swarm",
+      description: "HAAS = Hierarchical Autonomous Agent Swarm - \"Resistance is futile!\"",
+      language: "Python",
+      languageColor: "#3572A5",
       stars: 47,
       forks: 12,
       updatedAt: "Updated 1 week ago",
     },
     {
-      name: "ai-content-generator",
-      description: "AI-powered application that generates high-quality content based on user prompts",
-      language: "Python",
-      languageColor: "#3572A5",
-      stars: 86,
-      forks: 23,
+      name: "portfolio-website",
+      description: "Personal portfolio website built with Next.js and Tailwind CSS",
+      language: "TypeScript",
+      languageColor: "#3178c6",
+      stars: 16,
+      forks: 3,
       updatedAt: "Updated 3 days ago",
     },
     {
-      name: "fitness-tracking-app",
-      description: "Mobile application for tracking workouts, nutrition, and progress",
-      language: "JavaScript",
-      languageColor: "#f7df1e",
-      stars: 32,
-      forks: 8,
+      name: "mlrose",
+      description: "Python package for implementing Machine Learning, Randomized Optimization and Search algorithms",
+      language: "Jupyter Notebook",
+      languageColor: "#DA5B0B",
+      stars: 8,
+      forks: 2,
       updatedAt: "Updated 2 weeks ago",
     },
     {
-      name: "task-management-tool",
-      description: "Collaborative task management tool with real-time updates",
-      language: "TypeScript",
-      languageColor: "#3178c6",
-      stars: 19,
-      forks: 4,
+      name: "AMIA-Latex-Template",
+      description: "Latex template for AMIA submissions",
+      language: "PostScript",
+      languageColor: "#7A151A",
+      stars: 5,
+      forks: 1,
       updatedAt: "Updated 1 month ago",
     },
   ]
+
+  const handleRepoClick = (repoName: string) => {
+    window.open(`${githubProfileUrl}/${repoName}`, "_blank")
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Popular Repositories</h2>
-        <button className="px-4 py-2 text-sm text-white bg-green-600 rounded-md hover:bg-green-700">New</button>
+        <button 
+          onClick={() => window.open(githubProfileUrl, "_blank")}
+          className="px-4 py-2 text-sm text-white bg-green-600 rounded-md hover:bg-green-700"
+        >
+          View All
+        </button>
       </div>
 
       <div className="space-y-4">
         {repositories.map((repo, index) => (
-          <div key={index} className="p-4 border rounded-md hover:bg-gray-50">
+          <div 
+            key={index} 
+            className="p-4 border rounded-md hover:bg-gray-50 cursor-pointer"
+            onClick={() => handleRepoClick(repo.name)}
+          >
             <div className="flex justify-between">
               <h3 className="text-lg font-semibold text-blue-600">{repo.name}</h3>
               <span className="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-md">Public</span>

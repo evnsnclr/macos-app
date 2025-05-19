@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { Wifi, Battery, Volume2 } from "lucide-react"
+import { useWindowContext } from "@/components/window-context"
 
 export default function MenuBar() {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [activeApp, setActiveApp] = useState("Evan Sinclair Smith")
+  const { openWindows, focusedWindowId } = useWindowContext()
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -14,6 +16,18 @@ export default function MenuBar() {
 
     return () => clearInterval(timer)
   }, [])
+
+  // Update active app when focused window changes
+  useEffect(() => {
+    if (focusedWindowId && openWindows.length > 0) {
+      const focusedWindow = openWindows.find(w => w.id === focusedWindowId)
+      if (focusedWindow) {
+        setActiveApp(focusedWindow.title)
+      }
+    } else {
+      setActiveApp("Evan Sinclair Smith")
+    }
+  }, [focusedWindowId, openWindows])
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })

@@ -20,12 +20,12 @@ export default function Dock() {
   const { openWindow } = useWindowContext()
 
   return (
-    <div className="absolute bottom-0 w-full flex justify-center mb-2 z-50">
+    <div className="absolute bottom-0 w-full flex justify-center mb-3 z-50">
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-        className="px-4 py-2 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-end space-x-1 sm:space-x-2 overflow-x-auto sm:overflow-visible max-w-[90vw] sm:max-w-none scrollbar-hide"
+        className="px-5 py-2.5 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-end space-x-1.5 sm:space-x-2.5 overflow-x-auto sm:overflow-visible max-w-[92vw] sm:max-w-none scrollbar-hide shadow-lg"
       >
         <DockIcon icon="/finder.svg" label="Finder" onClick={() => openWindow("finder", "Finder", <FinderApp />)} />
         <DockIcon icon="/safari.svg" label="Portfolio" onClick={() => openWindow("safari", "Portfolio", <SafariApp />)} />

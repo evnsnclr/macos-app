@@ -22,11 +22,21 @@ type FoldersMap = {
   [key: string]: Item[];
 }
 
-export default function FinderApp() {
-  const [currentFolder, setCurrentFolder] = useState("home")
+interface FinderAppProps {
+  initialFolder?: string;
+}
+
+export default function FinderApp({ initialFolder = "home" }: FinderAppProps) {
+  const [currentFolder, setCurrentFolder] = useState(initialFolder)
   const [searchQuery, setSearchQuery] = useState("")
-  const [breadcrumb, setBreadcrumb] = useState<string[]>(["home"])
+  const [breadcrumb, setBreadcrumb] = useState<string[]>([initialFolder])
   const [selectedItem, setSelectedItem] = useState<Item | null>(null)
+
+  // Update breadcrumb when initialFolder changes
+  useEffect(() => {
+    setCurrentFolder(initialFolder);
+    setBreadcrumb([initialFolder]);
+  }, [initialFolder]);
 
   const folders: FoldersMap = {
     home: [
@@ -162,6 +172,13 @@ export default function FinderApp() {
       {/* Toolbar */}
       <div className="flex items-center p-2 bg-gray-100 border-b space-x-2">
         <div className="flex space-x-1.5">
+          <button 
+            onClick={navigateUp}
+            className="p-1 rounded hover:bg-gray-200"
+            title="Navigate up"
+          >
+            ←
+          </button>
         </div>
         
         <div className="flex-1 flex items-center justify-center px-4">
