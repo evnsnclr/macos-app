@@ -251,7 +251,7 @@ Available commands:
         <div className="mb-4">
           <div className="text-xl font-bold mb-2">Portfolio Terminal v1.0</div>
           <div>Welcome to my interactive terminal portfolio!</div>
-          <div>Type 'help' to see available commands.</div>
+          <div>Type &quot;help&quot; to see available commands.</div>
         </div>
       )}
 
