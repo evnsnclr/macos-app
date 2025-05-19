@@ -5,6 +5,7 @@ import Desktop from "@/components/desktop"
 import Dock from "@/components/dock"
 import LoginScreen from "@/components/login-screen"
 import { WindowProvider } from "@/components/window-context"
+import { DarkModeProvider } from "@/components/dark-mode-context"
 import MenuBar from "@/components/menu-bar"
 
 export default function Home() {
@@ -45,12 +46,14 @@ export default function Home() {
   }
 
   return (
-    <WindowProvider>
-      <div className="relative w-screen h-screen overflow-hidden">
-        <MenuBar />
-        <Desktop />
-        <Dock />
-      </div>
-    </WindowProvider>
+    <DarkModeProvider>
+      <WindowProvider>
+        <div className="relative w-screen h-screen overflow-hidden">
+          <MenuBar />
+          <Desktop />
+          <Dock />
+        </div>
+      </WindowProvider>
+    </DarkModeProvider>
   )
 }

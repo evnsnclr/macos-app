@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import {
   H1, H2, P, UL, LI, Lead, Muted
 } from "@/components/ui/typography"
+import { useDarkMode } from "@/components/dark-mode-context"
 
 // Markdown content with proper syntax
 const notesContent = {
@@ -37,44 +38,46 @@ const notesContent = {
 };
 
 export default function NotesApp() {
+  const { isDarkMode } = useDarkMode();
+
   return (
-    <div className="flex flex-col h-full p-6 bg-amber-50 overflow-auto">
+    <div className={`flex flex-col h-full p-6 ${isDarkMode ? 'bg-zinc-900' : 'bg-amber-50'} overflow-auto`}>
       <motion.div 
         className="max-w-3xl mx-auto w-full space-y-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        <H1 className="text-amber-900">{notesContent.title}</H1>
+        <H1 className={isDarkMode ? "text-amber-400" : "text-amber-900"}>{notesContent.title}</H1>
         
-        <Lead className="text-slate-700">{notesContent.introduction}</Lead>
+        <Lead className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>{notesContent.introduction}</Lead>
         
-        <H2 className="text-amber-800 mt-8">{notesContent.approachTitle}</H2>
-        <P className="text-slate-700">{notesContent.approachContent}</P>
+        <H2 className={`${isDarkMode ? "text-amber-500" : "text-amber-800"} mt-8`}>{notesContent.approachTitle}</H2>
+        <P className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>{notesContent.approachContent}</P>
         
-        <H2 className="text-amber-800 mt-8">{notesContent.educationTitle}</H2>
-        <P className="text-slate-700">
+        <H2 className={`${isDarkMode ? "text-amber-500" : "text-amber-800"} mt-8`}>{notesContent.educationTitle}</H2>
+        <P className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>
           Currently pursuing a <span className="font-semibold">Master&apos;s degree in Computer Science</span> with specialization in Machine Learning at Georgia Institute of Technology.
           I hold a degree in Computer Information Systems from Georgia State University&apos;s J. Mack Robinson College of Business.
         </P>
         
-        <H2 className="text-amber-800 mt-8">{notesContent.skillsTitle}</H2>
-        <UL className="text-slate-700">
+        <H2 className={`${isDarkMode ? "text-amber-500" : "text-amber-800"} mt-8`}>{notesContent.skillsTitle}</H2>
+        <UL className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>
           {notesContent.skills.map((skill, index) => (
             <LI key={index}>{skill}</LI>
           ))}
         </UL>
         
-        <H2 className="text-amber-800 mt-8">{notesContent.focusTitle}</H2>
-        <P className="text-slate-700">{notesContent.focusContent}</P>
+        <H2 className={`${isDarkMode ? "text-amber-500" : "text-amber-800"} mt-8`}>{notesContent.focusTitle}</H2>
+        <P className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>{notesContent.focusContent}</P>
         
-        <H2 className="text-amber-800 mt-8">{notesContent.interestsTitle}</H2>
-        <P className="text-slate-700">{notesContent.interestsContent}</P>
+        <H2 className={`${isDarkMode ? "text-amber-500" : "text-amber-800"} mt-8`}>{notesContent.interestsTitle}</H2>
+        <P className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>{notesContent.interestsContent}</P>
         
-        <H2 className="text-amber-800 mt-8">{notesContent.connectTitle}</H2>
-        <P className="text-slate-700">{notesContent.connectContent}</P>
+        <H2 className={`${isDarkMode ? "text-amber-500" : "text-amber-800"} mt-8`}>{notesContent.connectTitle}</H2>
+        <P className={isDarkMode ? "text-zinc-300" : "text-slate-700"}>{notesContent.connectContent}</P>
         
-        <Muted className="italic text-slate-500 mt-12 text-center">Last updated: {new Date().toLocaleDateString()}</Muted>
+        <Muted className={`italic ${isDarkMode ? "text-zinc-500" : "text-slate-500"} mt-12 text-center`}>Last updated: {new Date().toLocaleDateString()}</Muted>
       </motion.div>
     </div>
   )

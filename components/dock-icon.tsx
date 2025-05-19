@@ -26,7 +26,6 @@ export default function DockIcon({ icon, label, onClick }: DockIconProps) {
         <Image src={icon || "/placeholder.svg"} alt={label} width={56} height={56} className="object-contain w-full h-full" />
 
         {/* Reflection effect */}
-        <div className="absolute bottom-0 w-7 h-1.5 sm:w-9 sm:h-2 md:w-11 md:h-3 bg-white/20 rounded-full blur-sm transform scale-x-75" />
       </motion.div>
 
       {/* Label tooltip */}

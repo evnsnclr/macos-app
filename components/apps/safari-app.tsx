@@ -18,6 +18,7 @@ import { FlipWords } from "@/components/ui/flip-words"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { useDarkMode } from "@/components/dark-mode-context"
 
 // Animation variants
 const containerVariants = {
@@ -66,6 +67,7 @@ export default function SafariApp() {
     future: []
   })
   const [showBookmarks, setShowBookmarks] = useState(true)
+  const { isDarkMode } = useDarkMode()
 
   const bookmarks = [
     { title: "Experience", url: "experience", icon: "🏢" },
@@ -214,17 +216,17 @@ export default function SafariApp() {
   const activeTab = tabs.find(tab => tab.id === activeTabId)
 
   return (
-    <div className="flex flex-col h-full bg-zinc-50 dark:bg-zinc-900 rounded-lg overflow-hidden">
+    <div className={`flex flex-col h-full bg-zinc-50 dark:bg-zinc-900 rounded-lg overflow-hidden ${isDarkMode ? 'dark' : ''}`}>
       {/* Tab bar */}
-      <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700 px-2 py-1 space-x-1">
+      <div className="flex items-center bg-zinc-100 dark:bg-zinc-800/90 border-b border-zinc-200 dark:border-zinc-700/80 px-2 py-1 space-x-1">
         {tabs.map(tab => (
           <div 
             key={tab.id}
             onClick={() => activateTab(tab.id)}
             className={`flex items-center px-3 py-1.5 text-xs rounded-t-lg cursor-pointer max-w-[200px] transition-colors ${
               tab.id === activeTabId 
-                ? "bg-zinc-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 border-t border-l border-r border-zinc-200 dark:border-zinc-700" 
-                : "bg-zinc-200/60 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                ? "bg-zinc-50 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border-t border-l border-r border-zinc-200 dark:border-zinc-700" 
+                : "bg-zinc-200/60 dark:bg-zinc-700/60 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700"
             }`}
           >
             <div className="flex-1 truncate">{tab.title}</div>
@@ -249,7 +251,7 @@ export default function SafariApp() {
       </div>
 
       {/* Browser toolbar */}
-      <div className="flex items-center p-2 space-x-2 bg-zinc-100 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700">
+      <div className="flex items-center p-2 space-x-2 bg-zinc-100 dark:bg-zinc-700/80 border-b border-zinc-200 dark:border-zinc-700/80">
         <Button 
           onClick={goBack} 
           disabled={history.past.length === 0}
@@ -285,9 +287,9 @@ export default function SafariApp() {
           <Home className="w-4 h-4" />
         </Button>
 
-        <div className="flex items-center flex-1 px-3 py-1 bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/20 dark:border-zinc-700/50 rounded-full">
+        <div className="flex items-center flex-1 px-3 py-1 bg-zinc-200/50 dark:bg-zinc-600/50 border border-zinc-300/20 dark:border-zinc-700/50 rounded-full">
           {isLoading ? (
-            <div className="w-4 h-4 mr-2 border-2 border-zinc-400 dark:border-zinc-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-4 h-4 mr-2 border-2 border-zinc-400 dark:border-zinc-500 border-t-transparent rounded-full animate-spin"></div>
           ) : (
             <ShieldCheck className="w-4 h-4 mr-2 text-zinc-500 dark:text-zinc-400" />
           )}
@@ -316,7 +318,7 @@ export default function SafariApp() {
 
       {/* Bookmarks bar */}
       {showBookmarks && (
-        <div className="flex items-center px-4 py-1.5 space-x-6 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700 text-xs">
+        <div className="flex items-center px-4 py-1.5 space-x-6 bg-zinc-50 dark:bg-zinc-800/70 border-b border-zinc-200 dark:border-zinc-700/80 text-xs">
           {bookmarks.map((bookmark, index) => (
             <button 
               key={index}

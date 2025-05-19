@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useWindowContext } from "@/components/window-context"
+import { useDarkMode } from "@/components/dark-mode-context"
 import DockIcon from "@/components/dock-icon"
 import FinderApp from "@/components/apps/finder-app"
 import SafariApp from "@/components/apps/safari-app"
@@ -18,6 +19,7 @@ import ChatGPTApp from "@/components/apps/chatgpt-app"
 
 export default function Dock() {
   const { openWindow } = useWindowContext()
+  const { isDarkMode } = useDarkMode()
 
   return (
     <div className="absolute bottom-0 w-full flex justify-center mb-3 z-50">
@@ -25,7 +27,11 @@ export default function Dock() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-        className="px-5 py-2.5 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-end space-x-1.5 sm:space-x-2.5 overflow-x-auto sm:overflow-visible max-w-[92vw] sm:max-w-none scrollbar-hide shadow-lg"
+        className={`px-5 py-2.5 rounded-2xl ${
+          isDarkMode 
+            ? 'bg-black/30 border-white/10' 
+            : 'bg-white/20 border-white/30'
+        } backdrop-blur-xl border flex items-end space-x-1.5 sm:space-x-2.5 overflow-x-auto sm:overflow-visible max-w-[92vw] sm:max-w-none scrollbar-hide shadow-lg`}
       >
         <DockIcon icon="/finder.svg" label="Finder" onClick={() => openWindow("finder", "Finder", <FinderApp />)} />
         <DockIcon icon="/safari.svg" label="Portfolio" onClick={() => openWindow("safari", "Portfolio", <SafariApp />)} />

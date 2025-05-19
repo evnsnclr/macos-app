@@ -1,21 +1,33 @@
 "use client"
 import Image from "next/image"
 import DesktopIcon from "@/components/desktop-icon"
+import DesktopToggle from "@/components/desktop-toggle"
 import Window from "@/components/window"
 import { useWindowContext } from "@/components/window-context"
+import { useDarkMode } from "@/components/dark-mode-context"
 import FinderApp from "@/components/apps/finder-app"
 import DoomApp from "@/components/apps/doom-app"
 import Game2048App from "@/components/apps/game-2048-app"
 
 export default function Desktop() {
   const { openWindows, openWindow } = useWindowContext()
+  const { isDarkMode } = useDarkMode()
 
   return (
     <div className="relative w-full h-full pt-8">
-      <Image src="/wallpaper.svg" alt="macOS Wallpaper" fill className="object-cover" priority />
+      <Image 
+        src={isDarkMode ? "/wallpaper-dark.svg" : "/wallpaper.svg"} 
+        alt="macOS Wallpaper" 
+        fill 
+        className="object-cover" 
+        priority 
+      />
 
       {/* Left side folders */}
       <div className="absolute grid grid-cols-1 gap-6 p-6 pt-10">
+        {/* Dark Mode Toggle (System Preferences) */}
+        <DesktopToggle />
+        
         <DesktopIcon
           icon="/folder.svg"
           label="Projects"
