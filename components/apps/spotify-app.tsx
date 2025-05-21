@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { 
   Play, 
   Pause, 
@@ -231,6 +231,28 @@ export default function SpotifyApp() {
   const activeSongs = songs[activePlaylist as keyof typeof songs]
   const currentSong = activeSongs[currentSongIndex]
 
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying)
+  }
+
+  const handleNextSong = useCallback(() => {
+    if (isShuffleOn) {
+      // Pick a random song that's not the current one
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * activeSongs.length);
+      } while (randomIndex === currentSongIndex && activeSongs.length > 1);
+      
+      setCurrentSongIndex(randomIndex);
+    } else {
+      // Move to next song or loop back to the beginning
+      setCurrentSongIndex((prevIndex) => 
+        prevIndex < activeSongs.length - 1 ? prevIndex + 1 : 0
+      );
+    }
+    setCurrentTime(0);
+  }, [isShuffleOn, activeSongs, currentSongIndex]);
+
   // Start/pause the song timer when playing state changes
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -257,7 +279,7 @@ export default function SpotifyApp() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isPlaying, currentSongIndex, activePlaylist, isRepeatOn]);
+  }, [isPlaying, currentSongIndex, activePlaylist, isRepeatOn, activeSongs, handleNextSong]);
 
   // Format seconds to mm:ss
   const formatTime = (seconds: number) => {
@@ -265,28 +287,6 @@ export default function SpotifyApp() {
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying)
-  }
-
-  const handleNextSong = () => {
-    if (isShuffleOn) {
-      // Pick a random song that's not the current one
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * activeSongs.length);
-      } while (randomIndex === currentSongIndex && activeSongs.length > 1);
-      
-      setCurrentSongIndex(randomIndex);
-    } else {
-      // Move to next song or loop back to the beginning
-      setCurrentSongIndex((prevIndex) => 
-        prevIndex < activeSongs.length - 1 ? prevIndex + 1 : 0
-      );
-    }
-    setCurrentTime(0);
-  }
 
   const handlePrevSong = () => {
     // If we're more than 3 seconds into the song, restart it

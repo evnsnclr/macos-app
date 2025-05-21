@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import {
@@ -33,32 +33,6 @@ export default function Game2048() {
   const [isGameOver, setIsGameOver] = useState(false)
   const gameContainerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    initializeGame()
-    const storedBestScore = localStorage.getItem('bestScore')
-    if (storedBestScore) setBestScore(parseInt(storedBestScore))
-    
-    if (gameContainerRef.current) {
-      gameContainerRef.current.focus()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (score > bestScore) {
-      setBestScore(score)
-      localStorage.setItem('bestScore', score.toString())
-    }
-  }, [score, bestScore])
-
-  const initializeGame = () => {
-    const newBoard: Tile[] = []
-    addNewTile(newBoard)
-    addNewTile(newBoard)
-    setBoard(newBoard)
-    setScore(0)
-    setIsGameOver(false)
-  }
-
   const addNewTile = (board: Tile[]) => {
     const emptyTiles = []
     for (let row = 0; row < GRID_SIZE; row++) {
@@ -79,6 +53,32 @@ export default function Game2048() {
       })
     }
   }
+
+  const initializeGame = useCallback(() => {
+    const newBoard: Tile[] = []
+    addNewTile(newBoard)
+    addNewTile(newBoard)
+    setBoard(newBoard)
+    setScore(0)
+    setIsGameOver(false)
+  }, [])
+
+  useEffect(() => {
+    initializeGame()
+    const storedBestScore = localStorage.getItem('bestScore')
+    if (storedBestScore) setBestScore(parseInt(storedBestScore))
+    
+    if (gameContainerRef.current) {
+      gameContainerRef.current.focus()
+    }
+  }, [initializeGame])
+
+  useEffect(() => {
+    if (score > bestScore) {
+      setBestScore(score)
+      localStorage.setItem('bestScore', score.toString())
+    }
+  }, [score, bestScore])
 
   const move = (direction: 'up' | 'down' | 'left' | 'right') => {
     if (isGameOver) return

@@ -7,11 +7,30 @@ interface FolderAppProps {
   folderType: string
 }
 
+interface FolderItem {
+  name: string;
+  type: "file" | "folder";
+  path?: string;
+  fileType?: string;
+  content?: string;
+}
+
+interface FolderItemWithPath extends FolderItem {
+  type: "folder";
+  path: string;
+}
+
+interface FileItem extends FolderItem {
+  type: "file";
+  fileType: string;
+  content: string;
+}
+
 export default function FolderApp({ folderType }: FolderAppProps) {
   const [currentFolder, setCurrentFolder] = useState(folderType)
   const [selectedFile, setSelectedFile] = useState<string | null>(null)
 
-  const folders = {
+  const folders: Record<string, (FolderItemWithPath | FileItem)[]> = {
     projects: [
       { name: "Web Development", type: "folder", path: "web-projects" },
       { name: "Mobile Apps", type: "folder", path: "mobile-projects" },
@@ -168,8 +187,10 @@ export default function FolderApp({ folderType }: FolderAppProps) {
     }
   }
 
-  const openFile = (fileName: string, fileContent: string) => {
-    setSelectedFile(fileName)
+  const openFile = (fileName: string | undefined) => {
+    if (fileName) {
+      setSelectedFile(fileName);
+    }
   }
 
   const renderFileContent = () => {
@@ -219,9 +240,14 @@ export default function FolderApp({ folderType }: FolderAppProps) {
             {folders[currentFolder as keyof typeof folders]?.map((item, index) => (
               <div
                 key={index}
-                onClick={() =>
-                  item.type === "folder" ? navigateToFolder(item.path) : openFile(item.name, item.content || "")
-                }
+                onClick={() => {
+                  if (item.type === "folder" && 'path' in item) {
+                    const folderItem = item as FolderItemWithPath;
+                    navigateToFolder(folderItem.path);
+                  } else {
+                    openFile(item.name);
+                  }
+                }}
                 className="flex flex-col items-center p-2 space-y-1 text-center cursor-pointer rounded-md hover:bg-gray-100"
               >
                 {item.type === "folder" ? (

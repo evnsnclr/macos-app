@@ -11,9 +11,8 @@ interface LoginScreenProps {
 }
 
 export default function LoginScreen({ onLogin }: LoginScreenProps) {
-  const [username, setUsername] = useState("Portfolio User")
+  const [username] = useState("Portfolio User")
   const [password, setPassword] = useState("")
-  const [showError, setShowError] = useState(false)
   const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
@@ -89,8 +88,6 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
             placeholder="Click anywhere to login"
             className="w-64 px-4 py-2 mb-4 text-black bg-white/80 backdrop-blur rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-
-          {showError && <div className="mb-4 text-sm text-red-400">Please enter a password</div>}
 
           <button
             type="submit"

@@ -45,7 +45,7 @@ export function WindowProvider({ children }: { children: ReactNode }) {
 
       // If we're closing the focused window, focus the last window in the stack
       if (focusedWindowId === id) {
-        setFocusedWindowId((prev) => {
+        setFocusedWindowId(() => {
           const remainingWindows = openWindows.filter((window) => window.id !== id)
           return remainingWindows.length > 0 ? remainingWindows[remainingWindows.length - 1].id : null
         })

@@ -66,7 +66,7 @@ export default function VSCodeApp() {
     { name: "README.md", type: "file" },
   ]
 
-  const fileContents = {
+  const fileContents: Record<string, string> = {
     "index.tsx": `import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
@@ -305,7 +305,17 @@ MIT
 `,
   }
 
-  const renderFileTree = (items: any[], level = 0) => {
+  const renderFileTree = (items: Array<{
+    name: string;
+    type: string;
+    path?: string;
+    children?: Array<{
+      name: string;
+      type: string;
+      path?: string;
+      fileType?: string;
+    }>;
+  }>, level = 0) => {
     return items.map((item) => {
       if (item.type === "folder") {
         const isExpanded = expandedFolders[item.name] || false
